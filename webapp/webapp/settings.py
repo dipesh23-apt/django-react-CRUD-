@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 from pathlib import Path
 import os
 from datetime import timedelta
+#from typing import List, Tuple
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -39,11 +40,14 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    #'django_minio_backend',
+    'django_minio_backend.apps.DjangoMinioBackendConfig',
     'rest_framework_simplejwt',
     'rest_framework',
     'corsheaders',
     'accounts',
-    'file'
+    'file',
+    'graphene_django',
 ]
 
 MIDDLEWARE = [
@@ -56,7 +60,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
+MINIO_CONSISTENCY_CHECK_ON_START = True
+#MINIO_HOST='192.168.1.5'
+MINIO_HOST='192.168.1.5'
+MINIO_PORT='9000'
+MINIO_ENDPOINT='192.168.1.5:9000'
+MINIO_ACCESS_KEY='minio'
+MINIO_SECRET_KEY='56b3f5edaf79cea29a2d4cfd1d07424f'
+MINIO_PRIVATE_BUCKETS=[]
+MINIO_USE_HTTPS = False
+#MINIO_POLICY_HOOKS: List[Tuple[str, dict]] = []
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -81,6 +94,15 @@ TEMPLATES = [
         },
     },
 ]
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}
 
 WSGI_APPLICATION = 'webapp.wsgi.application'
 
@@ -163,6 +185,14 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.0/howto/static-files/
+
+#STATICFILES_STORAGE = 'django_minio_backend.models.MinioBackendStatic'
+#MINIO_STATIC_FILES_BUCKET = 'my-static-files-bucket' 
+#MINIO_PRIVATE_BUCKETS.append(MINIO_STATIC_FILES_BUCKET)
+
+DEFAULT_FILE_STORAGE = 'django_minio_backend.models.MinioBackend'
+MINIO_MEDIA_FILES_BUCKET = 'django-media-files' 
+MINIO_PRIVATE_BUCKETS.append(MINIO_MEDIA_FILES_BUCKET)
 
 STATIC_URL = 'static/'
 

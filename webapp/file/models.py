@@ -1,4 +1,7 @@
 from django.db import models
+from django_minio_backend import MinioBackend, iso_date_prefix, __name__;
+
+from webapp.settings import MINIO_MEDIA_FILES_BUCKET
 
 # Create your models here.
 class Employee_Task(models.Model):
@@ -12,11 +15,13 @@ class Employee_Task(models.Model):
     department=models.CharField("Department",max_length=25)
     task=models.CharField("task",max_length=25)
     duedate=models.DateField("Due Date (mm/dd/yy)",auto_now_add=False,auto_now=False)
-    file = models.FileField("Report",upload_to=nameFile,blank=False, null=True)
+    file = models.FileField(verbose_name="File",
+                            storage=MinioBackend(bucket_name=MINIO_MEDIA_FILES_BUCKET),
+                            upload_to=nameFile)
     description=models.TextField("Description",max_length=100)
 
     def __str__(self):
-        return self.task
+        return self.file.name
 
     class Meta:
         db_table='employee_task'
