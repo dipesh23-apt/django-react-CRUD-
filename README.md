@@ -4,6 +4,20 @@ b/w frontend and backend.<br/>
 No just simply made on client side(React forms) or server side(django MVT) but as  bridge connecting both via REST API.<br/>
 Frontend- React<br/>
 Backend- Django<br/>
+
+## Features & Addons implemented:
+- **FLEXIBILITY**:
+Only the useful information fetching dynamically via ***GraphQL***. Reduces the problem of Over fetching/under fetching over REST API
+- **USABILITY** :
+Responsive web app using ***React*** for frontend to enhance the User-Experience
+- **TRANSPARENCY**:
+Data stored on a distributed object storage server- ***MINIO*** that  which provides access transparency and more reliable.
+- **SECURE**:
+Implemented Token Based Authentication rather than Session Based using ***JWT***
+- **PERFORMANCE**:
+Using ***Redis*** cache an in-memory storage that reduces the latency, and is much faster.Querying a db many times is time consuming.
+
+
 # Login
 Loggin in as user (JWT Authentication implemented)
 ![chrome_3tXNtxD1eV](https://user-images.githubusercontent.com/80080241/147473363-871f6350-8720-4c06-8044-a27eb5c3eb5a.png)
