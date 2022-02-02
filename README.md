@@ -1,4 +1,5 @@
 # django-react-CRUD-
+A File Uploading,Viewing,Modifying,and Deleting task project of employees 
 *CRUD( Create,Read, Update, Delete) Operations using Rest-API based communication* 
 b/w frontend and backend.<br/>
 No just simply made on client side(React forms) or server side(django MVT) but as  bridge connecting both via REST API.<br/>
